@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Animations</title>
+    <style>
+        /* Reset page margins */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Circle animation */
+        #circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: red;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.02s linear;
+        }
+
+        /* Bouncing square animation */
+        #square {
+            width: 60px;
+            height: 60px;
+            background-color: green;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(0) translateX(-50%);
+            }
+            50% {
+                transform: translateY(-150px) translateX(-50%);
+            }
+            100% {
+                transform: translateY(0) translateX(-50%);
+            }
+        }
+
+        /* Rotating rectangle animation */
+        #rectangle {
+            width: 100px;
+            height: 50px;
+            background-color: rgb(0, 0, 255);
+            position: absolute;
+            top: 20%;
+            right: 0;
+            transform-origin: center;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="circle"></div>
+<div id="square"></div>
+<div id="rectangle"></div>
+
+<script>
+    // JavaScript for the moving circle
+    let circle = document.getElementById('circle');
+    let xPos = 0;  // Initial position of the circle
+    let speed = 2; // Speed of the circle's movement
+
+    // Function to update the position of the circle
+    function moveCircle() {
+        xPos += speed;
+
+        // Reverse direction when the circle hits the screen's edge
+        if (xPos > window.innerWidth - circle.offsetWidth || xPos < 0) {
+            speed = -speed;
+        }
+
+        // Apply the new position to the circle
+        circle.style.transform = `translateX(${xPos}px) translateY(-50%)`;
+
+        // Repeat the animation
+        requestAnimationFrame(moveCircle);
+    }
+
+    // Start the animation for the moving circle
+    moveCircle();
+</script>
+
+</body>
+</html>
